@@ -1,0 +1,30 @@
+name: Bug Report
+description: Report a bug in TerminalPressure
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: command
+    attributes:
+      label: Which command?
+      options: [scan, stress, exploit, other]
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment (OS, Python version, nmap version)
+    validations:
+      required: true

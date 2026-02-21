@@ -1,6 +1,62 @@
-MIT License
+CyberViser Proprietary License
+Copyright (c) 2025 CyberViser. All Rights Reserved.
 
-Copyright (c) 2025 Terminal-Pressure
+IMPORTANT — READ CAREFULLY BEFORE USING THIS SOFTWARE.
+
+By accessing, downloading, cloning, forking, contributing to, or otherwise
+using this repository or any part of its contents (the "Software"), you agree
+to be bound by the terms of this license. If you do not agree, do not use the
+Software.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. OWNERSHIP
+
+   CyberViser retains sole and exclusive ownership of all intellectual property
+   rights, title, and interest in and to the Software, including all source
+   code, documentation, and any derivative works. No ownership rights are
+   transferred to you under this license.
+
+2. PERMITTED USES (Non-Commercial Only)
+
+   a) View and study the source code for personal or educational purposes only;
+   b) Run the Software locally for authorized, non-commercial security testing
+      on systems you own or have explicit written permission to test;
+   c) Submit contributions assigned irrevocably to CyberViser.
+
+3. RESTRICTIONS — YOU MAY NOT:
+
+   a) Use the Software for any commercial purpose without a written license;
+   b) Redistribute, publish, sublicense, sell, or transfer the Software;
+   c) Build competing products or services using this Software;
+   d) Remove or alter CyberViser copyright notices or branding;
+   e) Use the Software against any system without explicit authorization.
+
+4. AUTHORIZED USE ONLY
+
+   This tool is intended STRICTLY for authorized penetration testing and
+   security research. Use against systems without written authorization is
+   illegal and prohibited. CyberViser assumes no liability for unauthorized use.
+
+5. COMMERCIAL LICENSING
+
+   Contact: contact@cyberviser.ai
+
+6. NO WARRANTY
+
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+
+7. LIMITATION OF LIABILITY
+
+   CYBERVISER SHALL NOT BE LIABLE FOR ANY DAMAGES ARISING FROM USE OR MISUSE.
+
+8. TERMINATION
+
+   This license terminates immediately upon breach of any term herein.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+© 2025 CyberViser. All Rights Reserved.
+
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

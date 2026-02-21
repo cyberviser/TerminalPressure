@@ -1,2 +1,3 @@
-python-nmap
-scapy
+python-nmap>=0.7.1
+scapy>=2.5.0
+requests>=2.32.0

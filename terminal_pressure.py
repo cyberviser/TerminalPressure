@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 CyberViser. All Rights Reserved.
+# Licensed under the CyberViser Proprietary License — see LICENSE for details.
+# FOR AUTHORIZED SECURITY TESTING ONLY. Unauthorized use is illegal and prohibited.
 import argparse
 import nmap  # Requires pip install python-nmap (user installs)
 import socket
