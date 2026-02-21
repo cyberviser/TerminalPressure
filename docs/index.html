@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TerminalPressure — CyberViser Pentest Toolkit</title>
+  <meta name="description" content="TerminalPressure — authorized penetration testing toolkit. Vuln scanning, stress testing, and exploit chain simulation. Part of the CyberViser platform." />
+  <meta name="author" content="CyberViser" />
+  <link rel="canonical" href="https://cyberviser.github.io/TerminalPressure/" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://cyberviser.github.io/TerminalPressure/" />
+  <meta property="og:title"       content="TerminalPressure — Pentest Toolkit by CyberViser" />
+  <meta property="og:description" content="Authorized vuln scanning, stress testing, exploit chain simulation. Python. CLI." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:    #ff3366;
+      --green:  #00ff88;
+      --cyan:   #00e5ff;
+      --dark:   #080c10;
+      --card:   #0d1117;
+      --border: #1a2332;
+      --text:   #c9d1d9;
+      --muted:  #586069;
+    }
+    body { background: var(--dark); color: var(--text); font-family: 'Courier New', monospace; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(8,12,16,.95); backdrop-filter: blur(10px); z-index: 100; }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--red); text-decoration: none; letter-spacing: 2px; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-cta { border: 1px solid var(--red); color: var(--red) !important; padding: .4rem 1rem; border-radius: 4px; font-weight: 700; }
+    .nav-cta:hover { background: var(--red) !important; color: var(--dark) !important; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 5rem 2rem 4rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,51,102,.06) 0%, transparent 70%); pointer-events: none; }
+    .warning-badge { display: inline-block; background: rgba(255,51,102,.1); border: 1px solid var(--red); color: var(--red); font-size: .75rem; padding: .3rem 1rem; border-radius: 4px; margin-bottom: 1.5rem; letter-spacing: 1px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 1rem; }
+    .hero h1 .accent { color: var(--red); }
+    .hero p { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto 2rem; line-height: 1.7; }
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: .7rem 1.8rem; border-radius: 4px; font-family: inherit; font-size: .9rem; font-weight: 700; text-decoration: none; transition: all .2s; }
+    .btn-red  { background: var(--red); color: #fff; }
+    .btn-outline { border: 1px solid var(--red); color: var(--red); }
+    .btn:hover { opacity: .85; transform: translateY(-1px); }
+
+    /* Terminal demo */
+    .terminal-section { max-width: 800px; margin: 0 auto; padding: 2rem; }
+    .terminal { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .term-header { background: #161b22; padding: .6rem 1rem; display: flex; align-items: center; gap: .5rem; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; } .dot.y { background: #ffbd2e; } .dot.g { background: #28c840; }
+    .term-title { color: var(--muted); font-size: .8rem; margin-left: .5rem; }
+    .term-body { padding: 1.5rem; font-size: .85rem; line-height: 1.8; }
+    .t-red { color: var(--red); }
+    .t-green { color: var(--green); }
+    .t-cyan { color: var(--cyan); }
+    .t-muted { color: var(--muted); }
+    .t-white { color: var(--text); }
+
+    /* Features */
+    .features { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .features h2 { text-align: center; font-size: 1.6rem; color: var(--red); margin-bottom: 2.5rem; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color .2s; }
+    .feature-card:hover { border-color: var(--red); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+    .feature-card h3 { color: var(--red); font-size: 1rem; margin-bottom: .5rem; }
+    .feature-card p { color: var(--muted); font-size: .88rem; line-height: 1.6; }
+    .code-tag { display: inline-block; background: #161b22; color: var(--cyan); font-size: .75rem; padding: .15rem .5rem; border-radius: 3px; margin-top: .5rem; }
+
+    /* Install */
+    .install { background: var(--card); border: 1px solid var(--border); border-radius: 8px; max-width: 700px; margin: 0 auto 4rem; padding: 2rem; }
+    .install h2 { color: var(--green); margin-bottom: 1.2rem; font-size: 1.2rem; }
+    .install pre { background: #080c10; border: 1px solid var(--border); border-radius: 6px; padding: 1rem 1.2rem; font-size: .82rem; overflow-x: auto; line-height: 1.8; }
+    .install-wrap { padding: 0 2rem; }
+
+    /* Warning banner */
+    .warning-banner { background: rgba(255,51,102,.08); border: 1px solid rgba(255,51,102,.3); border-radius: 6px; padding: 1rem 1.5rem; max-width: 800px; margin: 0 auto 2rem; font-size: .85rem; color: var(--red); text-align: center; }
+
+    /* Hancock link */
+    .ecosystem { background: linear-gradient(135deg, rgba(0,255,136,.05), rgba(0,229,255,.05)); border: 1px solid var(--border); padding: 3rem 2rem; text-align: center; }
+    .ecosystem h2 { color: var(--green); margin-bottom: 1rem; font-size: 1.4rem; }
+    .ecosystem p { color: var(--muted); max-width: 520px; margin: 0 auto 1.5rem; font-size: .9rem; line-height: 1.7; }
+
+    footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
+    footer a { color: var(--green); text-decoration: none; }
+
+    @media(max-width:600px) { .nav-links { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">TERMINAL<span>PRESSURE</span></a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="https://github.com/cyberviser/TerminalPressure" target="_blank">GitHub</a></li>
+    <li><a href="https://cyberviser.netlify.app" class="nav-cta">Hancock AI ↗</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="warning-badge">⚠ AUTHORIZED USE ONLY — FOR PENTESTERS &amp; RED TEAMS</div>
+  <h1>TERMINAL<br><span class="accent">PRESSURE</span></h1>
+  <p>Authorized penetration testing toolkit — vulnerability scanning, connection stress testing, and exploit chain simulation. Built for red teams by CyberViser.</p>
+  <div class="btn-group">
+    <a href="https://github.com/cyberviser/TerminalPressure" target="_blank" class="btn btn-red">⚡ View on GitHub</a>
+    <a href="#install" class="btn btn-outline">Quick Start</a>
+  </div>
+</section>
+
+<div class="terminal-section">
+  <div class="terminal">
+    <div class="term-header">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span class="term-title">terminalpressure — demo</span>
+    </div>
+    <div class="term-body">
+      <div><span class="t-muted">$ </span><span class="t-green">python terminal_pressure.py</span></div>
+      <div><span class="t-red">╔══════════════════════════════════════╗</span></div>
+      <div><span class="t-red">║  TerminalPressure — CyberViser       ║</span></div>
+      <div><span class="t-red">║  Authorized Pentest Toolkit v1.0     ║</span></div>
+      <div><span class="t-red">╚══════════════════════════════════════╝</span></div>
+      <br>
+      <div><span class="t-cyan">Commands:</span> <span class="t-white">scan | stress | exploit | exit</span></div>
+      <br>
+      <div><span class="t-muted">tp&gt; </span><span class="t-white">scan 192.168.1.1</span></div>
+      <div><span class="t-green">[*] Starting nmap vuln scan on 192.168.1.1...</span></div>
+      <div><span class="t-green">[+] Open: 22/tcp (OpenSSH 8.2) — No critical CVEs</span></div>
+      <div><span class="t-green">[+] Open: 80/tcp (Apache 2.4.41) — CVE-2021-41773 detected!</span></div>
+      <div><span class="t-red">[!] CRITICAL: Path traversal / RCE on Apache 2.4.41-2.4.42</span></div>
+      <br>
+      <div><span class="t-muted">tp&gt; </span><span class="t-white">exploit CVE-2021-41773</span></div>
+      <div><span class="t-cyan">[*] Loading exploit chain for CVE-2021-41773...</span></div>
+      <div><span class="t-green">[+] Exploit simulation complete. Report generated: report_20260221.txt</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="features" id="features">
+  <h2>// capabilities</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Vulnerability Scanner</h3>
+      <p>Automated nmap-based scanning across ports 1–1024 with service detection and CVE correlation. Outputs structured reports.</p>
+      <span class="code-tag">scan &lt;target&gt;</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💥</div>
+      <h3>Stress Testing</h3>
+      <p>Multi-threaded connection load testing for authorized resilience assessments. Configurable thread count and duration.</p>
+      <span class="code-tag">stress &lt;target&gt; &lt;port&gt;</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⛓️</div>
+      <h3>Exploit Chain Sim</h3>
+      <p>Simulate multi-stage exploit chains for authorized red team exercises. Documents attack paths without executing payloads.</p>
+      <span class="code-tag">exploit &lt;cve-id&gt;</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>Report Generation</h3>
+      <p>Auto-generates timestamped plaintext reports after each scan or test run. Ready to drop into your pentest report.</p>
+      <span class="code-tag">output: report_YYYYMMDD.txt</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤖</div>
+      <h3>Hancock Integration</h3>
+      <p>Pair with Hancock AI to get instant triage, CVE analysis, and PICERL playbooks for every finding TerminalPressure uncovers.</p>
+      <span class="code-tag">cyberviser.netlify.app</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>Proprietary License</h3>
+      <p>CyberViser Proprietary License — permitted for authorized research and testing. Commercial use requires a license agreement.</p>
+      <span class="code-tag">cyberviser@proton.me</span>
+    </div>
+  </div>
+</section>
+
+<div class="warning-banner">
+  ⚠️ This tool is for <strong>authorized security testing only</strong>. You must have explicit written permission to test any system. Unauthorized use is illegal under the CFAA and equivalent laws. CyberViser assumes no liability for misuse.
+</div>
+
+<div class="install-wrap" id="install">
+  <div class="install">
+    <h2>// quick start</h2>
+    <pre><span class="t-muted"># Clone the repo</span>
+git clone https://github.com/cyberviser/TerminalPressure.git
+cd TerminalPressure
+
+<span class="t-muted"># Install dependencies</span>
+pip install -r requirements.txt
+
+<span class="t-muted"># Run (requires nmap installed)</span>
+<span class="t-muted"># Linux: sudo apt install nmap</span>
+<span class="t-muted"># macOS: brew install nmap</span>
+python terminal_pressure.py
+
+<span class="t-muted"># Commands inside the tool</span>
+<span class="t-green">scan</span>    &lt;target_ip&gt;           <span class="t-muted"># vuln scan</span>
+<span class="t-green">stress</span>  &lt;target_ip&gt; &lt;port&gt;   <span class="t-muted"># load test</span>
+<span class="t-green">exploit</span> &lt;cve-id&gt;             <span class="t-muted"># exploit sim</span>
+<span class="t-green">exit</span>                          <span class="t-muted"># quit</span></pre>
+  </div>
+</div>
+
+<section class="ecosystem">
+  <h2>// part of the cyberviser platform</h2>
+  <p>TerminalPressure handles the exploitation. <strong>Hancock</strong> handles the analysis — triage findings, generate CVE reports, write executive summaries, and build IR playbooks using AI.</p>
+  <a href="https://cyberviser.netlify.app" class="btn btn-red">Explore Hancock AI →</a>
+</section>
+
+<footer>
+  <p>© 2026 CyberViser — All Rights Reserved | <a href="https://github.com/cyberviser/TerminalPressure/blob/main/LICENSE">License</a> | <a href="https://cyberviser.netlify.app/contact">Contact</a> | <a href="mailto:cyberviser@proton.me">cyberviser@proton.me</a></p>
+</footer>
+
+</body>
+</html>
