@@ -121,23 +121,15 @@
       <span class="term-title">terminalpressure — demo</span>
     </div>
     <div class="term-body">
-      <div><span class="t-muted">$ </span><span class="t-green">python terminal_pressure.py</span></div>
-      <div><span class="t-red">╔══════════════════════════════════════╗</span></div>
-      <div><span class="t-red">║  TerminalPressure — CyberViser       ║</span></div>
-      <div><span class="t-red">║  Authorized Pentest Toolkit v1.0     ║</span></div>
-      <div><span class="t-red">╚══════════════════════════════════════╝</span></div>
+      <div><span class="t-muted">$ </span><span class="t-green">python terminal_pressure.py scan 192.168.1.1</span></div>
+      <div><span class="t-green">[+] Pressuring target: 192.168.1.1</span></div>
+      <div><span class="t-white">Host: 192.168.1.1</span></div>
+      <div><span class="t-green">Port 22/tcp: open (ssh)</span></div>
+      <div><span class="t-green">Port 80/tcp: open (http)</span></div>
+      <div><span class="t-red">Vuln Script: http-vuln-cve2021-41773 - possible path traversal</span></div>
       <br>
-      <div><span class="t-cyan">Commands:</span> <span class="t-white">scan | stress | exploit | exit</span></div>
-      <br>
-      <div><span class="t-muted">tp&gt; </span><span class="t-white">scan 192.168.1.1</span></div>
-      <div><span class="t-green">[*] Starting nmap vuln scan on 192.168.1.1...</span></div>
-      <div><span class="t-green">[+] Open: 22/tcp (OpenSSH 8.2) — No critical CVEs</span></div>
-      <div><span class="t-green">[+] Open: 80/tcp (Apache 2.4.41) — CVE-2021-41773 detected!</span></div>
-      <div><span class="t-red">[!] CRITICAL: Path traversal / RCE on Apache 2.4.41-2.4.42</span></div>
-      <br>
-      <div><span class="t-muted">tp&gt; </span><span class="t-white">exploit CVE-2021-41773</span></div>
-      <div><span class="t-cyan">[*] Loading exploit chain for CVE-2021-41773...</span></div>
-      <div><span class="t-green">[+] Exploit simulation complete. Report generated: report_20260221.txt</span></div>
+      <div><span class="t-muted">$ </span><span class="t-green">python terminal_pressure.py exploit 192.168.1.1 --payload default_backdoor</span></div>
+      <div><span class="t-cyan">[+] Injecting backdoor sim on 192.168.1.1 - Codex tip: Replace with real rev-shell</span></div>
     </div>
   </div>
 </div>
@@ -155,13 +147,13 @@
       <div class="feature-icon">💥</div>
       <h3>Stress Testing</h3>
       <p>Multi-threaded connection load testing for authorized resilience assessments. Configurable thread count and duration.</p>
-      <span class="code-tag">stress &lt;target&gt; &lt;port&gt;</span>
+      <span class="code-tag">stress &lt;target&gt; --port 80</span>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⛓️</div>
       <h3>Exploit Chain Sim</h3>
       <p>Simulate multi-stage exploit chains for authorized red team exercises. Documents attack paths without executing payloads.</p>
-      <span class="code-tag">exploit &lt;cve-id&gt;</span>
+      <span class="code-tag">exploit &lt;target&gt; --payload default_backdoor</span>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📋</div>
@@ -198,16 +190,16 @@ cd TerminalPressure
 <span class="t-muted"># Install dependencies</span>
 pip install -r requirements.txt
 
-<span class="t-muted"># Run (requires nmap installed)</span>
+<span class="t-muted"># Run scans (requires nmap installed)</span>
 <span class="t-muted"># Linux: sudo apt install nmap</span>
 <span class="t-muted"># macOS: brew install nmap</span>
-python terminal_pressure.py
+python terminal_pressure.py scan 192.168.1.1
 
-<span class="t-muted"># Commands inside the tool</span>
-<span class="t-green">scan</span>    &lt;target_ip&gt;           <span class="t-muted"># vuln scan</span>
-<span class="t-green">stress</span>  &lt;target_ip&gt; &lt;port&gt;   <span class="t-muted"># load test</span>
-<span class="t-green">exploit</span> &lt;cve-id&gt;             <span class="t-muted"># exploit sim</span>
-<span class="t-green">exit</span>                          <span class="t-muted"># quit</span></pre>
+<span class="t-muted"># Stress test</span>
+python terminal_pressure.py stress 192.168.1.1 --port 80 --threads 50 --duration 60
+
+<span class="t-muted"># Exploit simulation</span>
+python terminal_pressure.py exploit 192.168.1.1 --payload default_backdoor</pre>
   </div>
 </div>
 
